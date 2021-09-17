@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 // find the styles css file
-const files = getFilesFromPath('./dist/portal', '.css');
+const files = getFilesFromPath('./dist/museum-api', '.css');
 let data = [];
 
 if (!files && files.length <= 0) {
@@ -13,20 +13,20 @@ if (!files && files.length <= 0) {
 
 for (const f of files) {
     // get original file size
-    const originalSize = getFilesizeInKiloBytes('./dist/portal/' + f) + 'kb';
+    const originalSize = getFilesizeInKiloBytes('./dist/museum-api/' + f) + 'kb';
     const o = {file: f, originalSize: originalSize, newSize: ''};
     data.push(o);
 }
 
 console.log('Run PurgeCSS...');
 
-exec('purgecss -css dist/portal/*.css --content dist/portal/index.html dist/portal/*.js dist/portal/**/*.js -o dist/portal/', function(error, stdout, stderr) {
+exec('purgecss -css dist/museum-api/*.css --content dist/museum-api/index.html dist/museum-api/*.js dist/museum-api/**/*.js -o dist/museum-api/', function(error, stdout, stderr) {
     console.log('PurgeCSS done');
     console.log();
 
     for (const d of data) {
         // get new file size
-        const newSize = getFilesizeInKiloBytes('./dist/portal/' + d.file) + 'kb';
+        const newSize = getFilesizeInKiloBytes('./dist/museum-api/' + d.file) + 'kb';
         d.newSize = newSize;
     }
 
