@@ -1,0 +1,32 @@
+<div class="container my-4">
+  <div class="row">
+    <div class="col-sm-6"></div>
+    <div class="col-sm-6 float-end">
+      <label class="form-label" for="query">Search</label>
+      <input class="form-control" id="query" type="search" (keyup.enter)="search()" [(ngModel)]="query">
+    </div>
+  </div>
+  <div *ngFor="let dep of departments" class="dep-section mb-3">
+    <div>
+      <h4 class="mb-2">{{dep.displayName}}</h4>
+      <swiper
+        [loop]="true"
+        [navigation]="true"
+        [slidesPerView]="6"
+        [spaceBetween]="10"
+      >
+        <ng-template *ngFor="let slide of dep.objects" swiperSlide>
+          <div class="card w-100">
+            <img [alt]="slide.title" [lazyLoad]="slide.primaryImageSmall" class="card-img-top"
+                 defaultImage="assets/images/loader.svg">
+            <div class="card-body">
+              <a class="card-text text-secondary" routerLink="/departments/{{slide.objectID}}">{{slide.title}}</a>
+            </div>
+          </div>
+        </ng-template>
+      </swiper>
+    </div>
+    <hr>
+  </div>
+</div>
+<router-outlet></router-outlet>

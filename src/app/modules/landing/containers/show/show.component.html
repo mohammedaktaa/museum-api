@@ -1,0 +1,68 @@
+<div aria-labelledby="exampleModalLabel" aria-modal="true" class="modal fade show" id="department-modal" tabindex="-1">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{object.title}}</h5>
+        <button (click)="close()" aria-label="Close" class="btn-close" type="button"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="" *ngIf="object.additionalImages && object.additionalImages.length">
+              <swiper
+                [loop]="true"
+                [navigation]="true"
+                [spaceBetween]="10"
+                [thumbs]="{ swiper: thumbsSwiper }"
+                class="mySwiper2"
+                style="--swiper-navigation-color: #FFF;--swiper-pagination-color: #FFF"
+              >
+                <ng-template *ngFor="let img of object.additionalImages" swiperSlide>
+                  <img [alt]="object.title" [lazyLoad]="img" defaultImage="assets/images/loader.svg"/>
+                </ng-template>
+              </swiper>
+              <swiper
+                (swiper)="thumbsSwiper = $event"
+                [freeMode]="true"
+                [loop]="true"
+                [slidesPerView]="4"
+                [spaceBetween]="10"
+                [watchSlidesProgress]="true"
+                class="mySwiper"
+              >
+                <ng-template *ngFor="let img of object.additionalImages" swiperSlide>
+                  <img [alt]="object.title" [lazyLoad]="img" defaultImage="assets/images/loader.svg"/>
+                </ng-template>
+              </swiper>
+            </div>
+            <img *ngIf="!object.additionalImages" defaultImage="assets/images/loader.svg" [lazyLoad]="object.primaryImage" [alt]="object.title" class="img-fluid rounded w-100">
+          </div>
+          <div class="col-md-6">
+            <div class="col p-4 d-flex flex-column position-static">
+              <div>
+                <a *ngFor="let tag of object.tags" [href]="tag.Wikidata_URL"><strong
+                  class="d-inline-block mb-2 mx-1 text-success">#{{tag.term}}</strong></a>
+              </div>
+              <h3 class="mb-0">{{object.artistDisplayName}}</h3>
+              <p class="mb-auto">
+                <strong>Bio:</strong> {{object.artistDisplayBio}}<br>
+                <strong>Role:</strong> {{object.artistRole}}<br>
+                <strong>Accession Year:</strong> {{object.accessionYear}}
+              </p>
+              <hr>
+              <p class="mb-auto">
+                <strong>Dimensions:</strong> {{object.dimensions}}<br>
+                <strong>Classification:</strong> {{object.classification ? object.classification : 'N/A'}}<br>
+                <strong>Repository:</strong> {{object.repository ? object.repository : 'N/A'}}<br>
+              </p>
+              <div class="mb-1 text-muted">{{object.medium}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button (click)="close()" class="btn btn-link text-secondary text-decoration-none" type="button">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
