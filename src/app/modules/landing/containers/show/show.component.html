@@ -35,7 +35,7 @@
                 </ng-template>
               </swiper>
             </div>
-            <img *ngIf="!object.additionalImages" defaultImage="assets/images/loader.svg" [lazyLoad]="object.primaryImage" [alt]="object.title" class="img-fluid rounded w-100">
+            <img *ngIf="!object.additionalImages || (object.additionalImages && !object.additionalImages.length)" defaultImage="assets/images/loader.svg" [lazyLoad]="object.primaryImage" [alt]="object.title" class="img-fluid rounded w-100">
           </div>
           <div class="col-md-6">
             <div class="col p-4 d-flex flex-column position-static">
